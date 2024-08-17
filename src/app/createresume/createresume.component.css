@@ -1,0 +1,8 @@
+.mat-fab {
+    background-color: #2196F3; /* Blue color */
+    color: white; /* Ensure the icon is visible */
+  }
+  
+  .mat-fab:hover {
+    background-color: #1976D2; /* Darker blue on hover */
+  }

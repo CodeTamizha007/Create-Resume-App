@@ -1,0 +1,14 @@
+.example-spacer {
+    flex: 1 1 auto;
+  }
+
+  .math-button {
+    font-size: 24px; /* Adjust this size based on your preference */
+    padding: 10px 20px; /* Adjust padding for button size */
+    min-width: 120px; /* Ensures buttons have a consistent size */
+  }
+  
+  
+  .icon-size {
+    font-size: 360px; /* Adjust this size based on your preference */
+  }
