@@ -6,261 +6,280 @@
             <ng-template matStepLabel>Details</ng-template>
             <mat-form-field>
                 <mat-label>Name</mat-label>
-                <input matInput placeholder="Last name, First name" formControlName="name" required>
+                <input matInput placeholder="Enter your name" formControlName="name" required>
             </mat-form-field>
             <mat-form-field>
                 <mat-label>Phone Number</mat-label>
-                <input matInput formControlName="phoneno" required>
+                <input matInput formControlName="phoneno" placeholder="Enter your phone number"  required>
             </mat-form-field>
             <mat-form-field>
                 <mat-label>Email</mat-label>
-                <input matInput formControlName="mailid" required>
+                <input matInput formControlName="mailid" placeholder="Enter your mailid" required>
             </mat-form-field>
             <mat-form-field>
                 <mat-label>Address</mat-label>
                 <textarea matInput formControlName="address" placeholder="Enter your address" rows="2"></textarea>
             </mat-form-field>
-            <div>
-                <button mat-raised-button matStepperNext>Next</button>
+            <div class="action-buttons">
+                <button color="accent" mat-raised-button matStepperNext>Next</button>
             </div>
         </form>
     </mat-step>
 
-    <mat-step>
+    <!-- Step 2: Education -->
+    <mat-step  [stepControl]="education" errorMessage="Education required.">
         <ng-template matStepLabel>Education</ng-template>
         <div style="text-align: center; margin: 25px;">
-          <h1>Add Education</h1>
-          <button mat-fab aria-label="add education" color="primary" (click)="addEducation()">
-            <mat-icon>add</mat-icon>
-          </button>
+            <h1>Add Educations</h1>
+            <button mat-fab aria-label="add education" color="primary" (click)="addEducation()">
+                <mat-icon>add</mat-icon>
+            </button>
         </div>
         <form [formGroup]="education">
-          <div formArrayName="educationDetails">
-            <div *ngFor="let edu of eduArr.controls; let i = index" [formGroupName]="i" class="education-item">
-              <mat-form-field appearance="fill" style="width: 100%;">
-                <mat-label>Institution Name</mat-label>
-                <input matInput formControlName="institutionName" placeholder="Institution Name" />
-              </mat-form-field>
-              <mat-form-field appearance="fill" style="width: 100%;">
-                <mat-label>Start Year</mat-label>
-                <input matInput type="number" formControlName="startYear" placeholder="Start Year" />
-              </mat-form-field>
-              <mat-form-field appearance="fill" style="width: 100%;">
-                <mat-label>End Year</mat-label>
-                <input matInput type="number" formControlName="endYear" placeholder="End Year" />
-              </mat-form-field>
-              <mat-form-field appearance="fill" style="width: 100%;">
-                <mat-label>Course</mat-label>
-                <input matInput formControlName="course" placeholder="Course" />
-              </mat-form-field>
-              <mat-form-field appearance="fill" style="width: 100%;">
-                <mat-label>Percentage</mat-label>
-                <input matInput type="number" formControlName="percentage" placeholder="Percentage" />
-              </mat-form-field>
-              <button mat-icon-button matSuffix color="warn" type="button" (click)="removeEducation(i)"
-                *ngIf="eduArr.length > 1">
-                <mat-icon>remove_circle</mat-icon>
-              </button>
-            </div>
-          </div>
-          <div>
-            <button mat-raised-button matStepperPrevious>Back</button>
-            <button mat-raised-button matStepperNext>Next</button>
-          </div>
-        </form>
-      </mat-step>
-      
-
-    <!-- Step 2: Role & Descriptions -->
-    <mat-step optional="true">
-        <form [formGroup]="role">
-            <ng-template matStepLabel>Role & Descriptions</ng-template>
-            <mat-form-field appearance="fill">
-                <mat-label>Role</mat-label>
-                <input matInput formControlName="role" required>
-            </mat-form-field>
-            <mat-form-field appearance="fill">
-                <mat-label>Role Description</mat-label>
-                <textarea matInput formControlName="roleDescription" placeholder="Describe your role"
-                    rows="2"></textarea>
-            </mat-form-field>
-            <div>
-                <button mat-raised-button matStepperPrevious>Back</button>
-                <button mat-raised-button matStepperNext>Next</button>
+            <div formArrayName="educationDetails">
+                <div *ngFor="let edu of eduArr.controls; let i = index" [formGroupName]="i" >
+                    <mat-form-field appearance="fill" style="width: 100%;">
+                        <mat-label>Institution Name</mat-label>
+                        <input matInput formControlName="institutionName" placeholder="Institution Name" />
+                    </mat-form-field>
+                    <mat-form-field appearance="fill" style="width: 100%;">
+                        <mat-label>Start Year</mat-label>
+                        <input matInput type="number" formControlName="startYear" placeholder="Start Year" />
+                    </mat-form-field>
+                    <mat-form-field appearance="fill" style="width: 100%;">
+                        <mat-label>End Year</mat-label>
+                        <input matInput type="number" formControlName="endYear" placeholder="End Year" />
+                    </mat-form-field>
+                    <mat-form-field appearance="fill" style="width: 100%;">
+                        <mat-label>Course</mat-label>
+                        <input matInput formControlName="Course Name" placeholder="Course" />
+                    </mat-form-field>
+                    <mat-form-field appearance="fill" style="width: 100%;">
+                        <mat-label>Percentage</mat-label>
+                        <input matInput type="number" formControlName="percentage" placeholder="Percentage" />
+                    </mat-form-field>
+                    <button mat-raised-button  matSuffix color="warn" type="button" (click)="removeEducation(i)"
+                        >Delete
+                    </button>
+                </div>
             </div>
         </form>
+            <div class="action-buttons">
+                <button mat-raised-button color="accent" matStepperPrevious>Back</button>
+                <button mat-raised-button color="accent" matStepperNext>Next</button>
+            </div>
+        
     </mat-step>
 
-    <!-- Step 3: Skills -->
-    <mat-step>
+    <!-- Step 3: Role & Descriptions -->
+    <mat-step  [stepControl]="role" errorMessage="Role required.">
+        
+            <ng-template matStepLabel>Roles & Description</ng-template>
+            <div style="text-align: center; margin: 25px;">
+                <h1>Add Roles & Description</h1>
+                <button mat-fab aria-label="add role" color="primary" (click)="addRole()">
+                    <mat-icon>add</mat-icon>
+                </button>
+            </div>
+        <form [formGroup]="role">
+            <div formArrayName="roles">
+                <div *ngFor="let r of roleArr.controls; let i = index" [formGroupName]="i" class="role-item">
+                    <mat-form-field appearance="fill" style="width: 100%;">
+                        <mat-label>Role</mat-label>
+                        <input matInput formControlName="role" placeholder="Role" />
+                    </mat-form-field>
+                    <mat-form-field appearance="fill" style="width: 100%;">
+                        <mat-label>Role Description</mat-label>
+                        <input matInput formControlName="roleDescription" placeholder="Role Description" />
+                    </mat-form-field>
+                    <button mat-raised-button  matSuffix color="warn" type="button" (click)="removeRole(i)"
+                        >Delete
+                    </button>
+                </div>
+            </div>
+        </form>
+            <div class="action-buttons">
+                <button mat-raised-button color="accent" matStepperPrevious>Back</button>
+                <button mat-raised-button color="accent" matStepperNext>Next</button>
+            </div>
+        
+    </mat-step>
+
+    <!-- Step 4: Skills -->
+    <mat-step  [stepControl]="skills" errorMessage="Skills required.">
+        <ng-template matStepLabel>Skills</ng-template>
         <div style="text-align: center; margin: 25px;">
-            <h1>Add Skill</h1>
+            <h1>Add Skills</h1>
             <button mat-fab aria-label="add skill" color="primary" (click)="addSkill()">
                 <mat-icon>add</mat-icon>
             </button>
         </div>
         <form [formGroup]="skills">
             <div formArrayName="skill">
-                <div *ngFor="let skill of skillArr.controls; let i = index" class="skill-item">
-                    <mat-form-field appearance="fill">
-                        <mat-label>Enter Skill</mat-label>
-                        <input matInput [formControlName]="i" placeholder="Skill Name" />
+                <div *ngFor="let s of skillArr.controls; let i = index" [formGroupName]="i" class="skill-item">
+                    <mat-form-field appearance="fill" style="width: 100%;">
+                        <mat-label>Skill</mat-label>
+                        <input matInput placeholder="Enter your skill" />
                         <button mat-icon-button matSuffix color="warn" type="button" (click)="removeSkills(i)"
-                            *ngIf="skillArr.length > 1">
-                            <mat-icon>remove_circle</mat-icon>
-                        </button>
+                        ><mat-icon>delete</mat-icon>
+                       </button>
                     </mat-form-field>
+                    
                 </div>
             </div>
-            <div>
-                <button mat-raised-button matStepperPrevious>Back</button>
-                <button mat-raised-button matStepperNext>Next</button>
+            <div class="action-buttons">
+                <button mat-raised-button color="accent" matStepperPrevious>Back</button>
+                <button mat-raised-button color="accent" matStepperNext>Next</button>
             </div>
         </form>
     </mat-step>
 
-    <!-- Step 4: Awards & Certifications -->
-    <mat-step>
-        <ng-template matStepLabel>Awards & Certifications</ng-template>
-        <div class="center-content">
-            <h1>Add Certifications</h1>
+    <!-- Step 5: Certifications -->
+    <mat-step  [stepControl]="certifications" errorMessage="Certifications required.">
+        <ng-template matStepLabel>Certifications & Awards</ng-template>
+        <div style="text-align: center; margin: 25px;">
+            <h1>Add Certifications & Awards</h1>
             <button mat-fab aria-label="add certification" color="primary" (click)="addCertification()">
-                <mat-icon>add</mat-icon>
-            </button>
-            <h1>Add Awards</h1>
-            <button mat-fab aria-label="add award" color="primary" (click)="addAward()">
                 <mat-icon>add</mat-icon>
             </button>
         </div>
         <form [formGroup]="certifications">
-            <!-- Certifications Array -->
             <div formArrayName="certifications">
-                <div *ngFor="let cert of certArr.controls; let i = index" class="skill-item">
-                    <mat-form-field appearance="fill">
-                        <mat-label>Enter Certification</mat-label>
-                        <input matInput [formControlName]="i" placeholder="Certification Name" />
+                <div *ngFor="let c of certArr.controls; let i = index" [formGroupName]="i" class="cert-item">
+                    <mat-form-field appearance="fill" style="width: 100%;">
+                        <mat-label>Certification</mat-label>
+                        <input matInput placeholder="Enter your certifications" />
                         <button mat-icon-button matSuffix color="warn" type="button" (click)="removeCertification(i)"
-                            *ngIf="certArr.length > 1">
-                            <mat-icon>remove_circle</mat-icon>
-                        </button>
+                        ><mat-icon>delete</mat-icon></button>
                     </mat-form-field>
+                    
                 </div>
             </div>
-            <!-- Awards Array -->
+            <div style="text-align: center; margin: 25px;">
+                <h1>Add Awards</h1>
+                <button mat-fab aria-label="add award" color="primary" (click)="addAward()">
+                    <mat-icon>add</mat-icon>
+                </button>
+            </div>
             <div formArrayName="awards">
-                <div *ngFor="let award of awardArr.controls; let i = index" class="skill-item">
-                    <mat-form-field appearance="fill">
-                        <mat-label>Enter Award</mat-label>
-                        <input matInput [formControlName]="i" placeholder="Award Name" />
+                <div *ngFor="let a of awardArr.controls; let i = index" [formGroupName]="i" class="award-item">
+                    <mat-form-field appearance="fill" style="width: 100%;">
+                        <mat-label>Awards</mat-label>
+                        <input matInput placeholder="Enter your awards" />
                         <button mat-icon-button matSuffix color="warn" type="button" (click)="removeAward(i)"
-                            *ngIf="awardArr.length > 1">
-                            <mat-icon>remove_circle</mat-icon>
-                        </button>
+                        ><mat-icon>delete</mat-icon></button>
                     </mat-form-field>
+                
                 </div>
             </div>
-            <div class="button-container">
-                <button mat-raised-button matStepperPrevious>Back</button>
-                <button mat-raised-button matStepperNext>Next</button>
+            <div class="action-buttons">
+                <button mat-raised-button color="accent" matStepperPrevious>Back</button>
+                <button mat-raised-button color="accent" matStepperNext>Next</button>
             </div>
         </form>
     </mat-step>
 
-    <!-- Step 5: Experience -->
-    <mat-step>
-        <ng-template matStepLabel>Experience</ng-template>
+    <!-- Step 6: Experience -->
+    <mat-step  [stepControl]="experience" errorMessage="Experience required.">
+        <ng-template matStepLabel>Experiences</ng-template>
         <div style="text-align: center; margin: 25px;">
-            <h1>Add Experience</h1>
+            <h1>Add Experiences</h1>
             <button mat-fab aria-label="add experience" color="primary" (click)="addExperience()">
                 <mat-icon>add</mat-icon>
             </button>
         </div>
         <form [formGroup]="experience">
             <div formArrayName="experiences">
-                <div *ngFor="let exp of expArr.controls; let i = index" [formGroupName]="i" class="experience-item">
-                    <mat-form-field appearance="fill">
+                <div *ngFor="let e of expArr.controls; let i = index" [formGroupName]="i" >
+                    <mat-form-field appearance="fill" style="width: 100%;">
                         <mat-label>Company</mat-label>
                         <input matInput formControlName="company" placeholder="Company Name" />
                     </mat-form-field>
-                    <mat-form-field appearance="fill">
+                    <mat-form-field appearance="fill" style="width: 100%;">
                         <mat-label>Role</mat-label>
                         <input matInput formControlName="role" placeholder="Role" />
                     </mat-form-field>
-                    <!-- Step 1: Details -->
-                    <mat-form-field>
+                    <mat-form-field appearance="fill" style="width: 100%;">
                         <mat-label>Start Date</mat-label>
-                        <input matInput [matDatepicker]="startDatePicker" formControlName="startDate"
-                            placeholder="Choose a date" required>
-                        <mat-datepicker-toggle matPrefix [for]="startDatePicker"></mat-datepicker-toggle>
-                        <mat-datepicker #startDatePicker></mat-datepicker>
+                        <input matInput [matDatepicker]="startDate" formControlName="startDate" placeholder="Start Date" />
+                        <mat-datepicker #startDate></mat-datepicker>
                     </mat-form-field>
-
-                    <mat-form-field>
+                    <mat-form-field appearance="fill" style="width: 100%;">
                         <mat-label>End Date</mat-label>
-                        <input matInput [matDatepicker]="endDatePicker" formControlName="endDate"
-                            placeholder="Choose a date" required>
-                        <mat-datepicker-toggle matPrefix [for]="endDatePicker"></mat-datepicker-toggle>
-                        <mat-datepicker #endDatePicker></mat-datepicker>
+                        <input matInput [matDatepicker]="endDate" formControlName="endDate" placeholder="End Date" />
+                        <mat-datepicker #endDate></mat-datepicker>
                     </mat-form-field>
-
-                    <mat-form-field appearance="fill">
+                    <mat-form-field appearance="fill" style="width: 100%;">
                         <mat-label>Description</mat-label>
-                        <textarea matInput formControlName="description" placeholder="Job Description"
-                            rows="2"></textarea>
+                        <textarea matInput formControlName="description" placeholder="Describe about your experience"></textarea>
                     </mat-form-field>
-                    <button mat-icon-button matSuffix color="warn" type="button" (click)="removeExperience(i)"
-                        *ngIf="expArr.length > 1">
-                        <mat-icon>remove_circle</mat-icon>
+                    <button mat-raised-button  matSuffix color="warn" type="button" (click)="removeExperience(i)"
+                        >Delete
                     </button>
                 </div>
             </div>
-            <div>
-                <button mat-raised-button matStepperPrevious>Back</button>
-                <button mat-raised-button matStepperNext>Next</button>
-            </div>
         </form>
+            <div class="action-buttons">
+                <button mat-raised-button color="accent" matStepperPrevious>Back</button>
+                <button mat-raised-button color="accent" matStepperNext>Next</button>
+            </div>
+        
     </mat-step>
 
-    <mat-step>
+    <!-- Step 7: Photo & URLs -->
+    <mat-step  >
         <ng-template matStepLabel>Photo & URLs</ng-template>
         <form [formGroup]="photoUrls">
-            <!-- Photo Upload -->
+            <div class="photo-url-container">
+                <!-- Photo Upload -->
+                
+                <mat-card class="photo-upload-card">
+                    <mat-card-header>
+                      <mat-card-title-group>
+                        <mat-card-title>Profile Photo</mat-card-title>
+                        <mat-card-subtitle><input type="file" (change)="onFileChange($event)" accept="image/*" /></mat-card-subtitle>
 
-            <!-- File Input Outside mat-form-field -->
-            <div>
-                <h1>photo</h1>
-                <input type="file" (change)="onFileChange($event)" accept="image/*" />
-
-                <img *ngIf="photoUrl" [src]="photoUrl" alt="Profile Photo" style="max-width: 100px; max-height: 100px;">
+                       
+                      </mat-card-title-group>
+                    </mat-card-header>
+                    <mat-card-content> 
+                        <img *ngIf="photoUrl" [src]="photoUrl" alt="Profile Photo" class="profile-photo"></mat-card-content>
+                  </mat-card>
+                <!-- Profile URL -->
+                <mat-card class="url-card">
+                    <mat-card-header>
+                        <mat-card-title>Profile URL</mat-card-title>
+                    </mat-card-header>
+                    <mat-card-content>
+                        <mat-form-field appearance="fill">
+                            <mat-label>Profile URL</mat-label>
+                            <input matInput formControlName="profileUrl" placeholder="Enter your profile URL" />
+                        </mat-form-field>
+                    </mat-card-content>
+                </mat-card>
+                
+                <!-- LinkedIn URL -->
+                <mat-card class="url-card">
+                    <mat-card-header>
+                        <mat-card-title>LinkedIn URL</mat-card-title>
+                    </mat-card-header>
+                    <mat-card-content>
+                        <mat-form-field appearance="fill">
+                            <mat-label>LinkedIn URL</mat-label>
+                            <input matInput formControlName="linkedinUrl" placeholder="Enter your LinkedIn URL" />
+                        </mat-form-field>
+                    </mat-card-content>
+                </mat-card>
             </div>
 
-            <!-- Profile URL -->
-            <mat-form-field appearance="fill">
-                <mat-label>Profile URL</mat-label>
-                <input matInput formControlName="profileUrl" placeholder="Enter your profile URL" />
-            </mat-form-field>
-
-            <!-- LinkedIn URL -->
-            <mat-form-field appearance="fill">
-                <mat-label>LinkedIn URL</mat-label>
-                <input matInput formControlName="linkedinUrl" placeholder="Enter your LinkedIn URL" />
-            </mat-form-field>
-
-            <!-- Other URL -->
-            <mat-form-field appearance="fill">
-                <mat-label>Other URL</mat-label>
-                <input matInput formControlName="otherUrl" placeholder="Enter another URL" />
-            </mat-form-field>
-
-            <div>
-                <button mat-raised-button matStepperPrevious>Back</button>
-                <button mat-raised-button matStepperNext>Next</button>
+            <div class="action-buttons">
+                <button mat-raised-button color="accent" matStepperPrevious>Back</button>
+                <button mat-raised-button color="accent" (click)="pdf()">Generate PDF</button>
             </div>
         </form>
     </mat-step>
 
-    <!-- Final Step -->
-    <mat-step>
+    <mat-step  >
         <ng-template matStepLabel>Review</ng-template>
 
         <mat-card class="review-card">
@@ -283,8 +302,10 @@
 
                     <div class="details-section">
                         <h3>Role & Description</h3>
-                        <p><strong>Role:</strong> {{role.value['role']}}</p>
-                        <p><strong>Description:</strong> {{role.value['roleDescription']}}</p>
+                        <div *ngFor="let value of roles">
+                        <p><strong>Role:</strong> {{value['role']}}</p>
+                        <p><strong>Description:</strong> {{value['roleDescription']}}</p>
+                        </div>
                     </div>
 
                     <div class="details-section">
@@ -308,17 +329,17 @@
                         </ul>
                     </div>
 
-                    <!-- <div class="details-section">
+                    <div class="details-section">
                 <h3>Experience</h3>
-                <div *ngFor="let value of exp">
-                  <p><strong>Company:</strong> {{value?['company']}}:"":""</p>
+                <div *ngFor="let value of exper">
+                  <p><strong>Company:</strong> {{value['company']}}:"":""</p>
                   <p><strong>Role:</strong> {{value['role']}}</p>
                   <p><strong>Start Date:</strong> {{value['startDate'] | date}}</p>
                   <p><strong>End Date:</strong> {{value['endDate'] | date}}</p>
                   <p><strong>Description:</strong> {{value['description']}}</p>
                   <mat-divider></mat-divider>
                 </div>
-              </div> -->
+              </div>
                 </div>
 
                 <div class="action-buttons">
@@ -329,6 +350,7 @@
             </mat-card-content>
         </mat-card>
     </mat-step>
+
 
 
 </mat-horizontal-stepper>
