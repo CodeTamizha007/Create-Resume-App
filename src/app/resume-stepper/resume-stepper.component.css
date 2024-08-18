@@ -1,0 +1,123 @@
+.experience-item {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 16px;
+}
+
+.skill-item {
+  margin-bottom: 16px;
+}
+
+.center-content {
+  text-align: center;
+  margin: 25px;
+}
+
+.button-container {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+}
+
+
+
+.button-container {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 20px;
+}
+
+.center-content {
+  text-align: center;
+  margin: 25px;
+}
+
+.skill-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.skill-item mat-form-field {
+  flex: 1;
+}
+
+.form {
+  width: 100%;
+}  
+
+mat-form-field textarea {
+  min-height: 60px; /* Reduced height */
+  max-height: 100px; /* Reduced height */
+  resize: vertical; /* Allows users to resize vertically */
+}
+
+.example-card {
+  max-width: 1000px;
+  margin-bottom: 8px;
+}
+
+.review-card {
+  max-width: 800px;
+  margin: auto;
+  padding: 16px;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.profile-photo {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 16px;
+}
+
+.review-details {
+  display: flex;
+  flex-direction: column;
+}
+
+.details-section {
+  margin-bottom: 16px;
+}
+
+.details-section h3 {
+  margin-top: 0;
+  color: #1976d2; /* Blue color for section headings */
+}
+
+.details-section p {
+  margin: 4px 0;
+}
+
+.details-section ul {
+  list-style-type: disc;
+  padding-left: 20px;
+  margin: 4px 0;
+}
+
+.action-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.action-buttons button {
+  margin: 0 8px;
+}
+
+
+
+
+

@@ -23,13 +23,13 @@ import {MatTreeModule} from '@angular/material/tree';
 import {ScrollingModule} from '@angular/cdk/scrolling';
 import {MatIconModule} from '@angular/material/icon';
 import { MatButtonModule } from "@angular/material/button";
-
+import {MatCardModule} from '@angular/material/card';
 import {MatTabsModule} from '@angular/material/tabs';
 
 
 
-
 export const AngularMaterial = [
+    MatCardModule,
     MatTabsModule,
     MatButtonModule,
     MatIconModule,

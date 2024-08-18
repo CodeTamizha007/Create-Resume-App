@@ -10,7 +10,8 @@ import { FooterComponent } from './footer/footer.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { TempleselectionComponent } from './templeselection/templeselection.component';
-import { CreateresumeComponent } from './createresume/createresume.component'
+import { CreateresumeComponent } from './createresume/createresume.component';
+import { ResumeStepperComponent } from './resume-stepper/resume-stepper.component'
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { CreateresumeComponent } from './createresume/createresume.component'
     LoginComponent,
     RegisterComponent,
     TempleselectionComponent,
-    CreateresumeComponent
+    CreateresumeComponent,
+    ResumeStepperComponent
   ],
   imports: [
     BrowserModule,
