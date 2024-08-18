@@ -44,7 +44,6 @@ export class ResumeStepperComponent {
     };
     console.log(detObj);
     this.downloadResume();
-    console.log(this.experience.value);
   }
 
   get exper(){
@@ -104,8 +103,8 @@ export class ResumeStepperComponent {
     this.eduArr.push(
       this.fb.group({
         institutionName: ['', Validators.required],
-        startYear: [null, [Validators.required, Validators.min(1900), Validators.max(new Date().getFullYear())]],
-        endYear: [null, [Validators.required, Validators.min(1900), Validators.max(new Date().getFullYear())]],
+        startYear: ["", [Validators.required]],
+        endYear: ["", [Validators.required]],
         course: ['', Validators.required],
         percentage: ['', [Validators.required, Validators.min(0), Validators.max(100)]],
       })
@@ -150,7 +149,7 @@ export class ResumeStepperComponent {
   }
 
   addSkill() {
-    this.skillArr.push(this.fb.control('',Validators.required));
+    this.skillArr.push(this.fb.control('',[Validators.required]));
   }
 
   removeSkills(index: number) {
@@ -158,7 +157,7 @@ export class ResumeStepperComponent {
   }
 
   addCertification() {
-    this.certArr.push(this.fb.control('',Validators.required));
+    this.certArr.push(this.fb.control('',[Validators.required]));
   }
 
   removeCertification(index: number) {
@@ -166,7 +165,7 @@ export class ResumeStepperComponent {
   }
 
   addAward() {
-    this.awardArr.push(this.fb.control('',Validators.required));
+    this.awardArr.push(this.fb.control('',[Validators.required]));
   }
 
   removeAward(index: number) {

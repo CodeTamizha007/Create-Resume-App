@@ -11,6 +11,7 @@
             <mat-form-field>
                 <mat-label>Phone Number</mat-label>
                 <input matInput formControlName="phoneno" placeholder="Enter your phone number"  required>
+                <mat-error>Phone number should be 10 digits</mat-error>
             </mat-form-field>
             <mat-form-field>
                 <mat-label>Email</mat-label>
@@ -52,7 +53,7 @@
                     </mat-form-field>
                     <mat-form-field appearance="fill" style="width: 100%;">
                         <mat-label>Course</mat-label>
-                        <input matInput formControlName="Course Name" placeholder="Course" />
+                        <input matInput formControlName="course" placeholder="Course Name" />
                     </mat-form-field>
                     <mat-form-field appearance="fill" style="width: 100%;">
                         <mat-label>Percentage</mat-label>
@@ -116,10 +117,10 @@
         </div>
         <form [formGroup]="skills">
             <div formArrayName="skill">
-                <div *ngFor="let s of skillArr.controls; let i = index" [formGroupName]="i" class="skill-item">
+                <div *ngFor="let s of skillArr.controls; let i = index"  class="skill-item">
                     <mat-form-field appearance="fill" style="width: 100%;">
                         <mat-label>Skill</mat-label>
-                        <input matInput placeholder="Enter your skill" />
+                        <input matInput [formControlName]="i" placeholder="Enter your skill" />
                         <button mat-icon-button matSuffix color="warn" type="button" (click)="removeSkills(i)"
                         ><mat-icon>delete</mat-icon>
                        </button>
@@ -145,10 +146,10 @@
         </div>
         <form [formGroup]="certifications">
             <div formArrayName="certifications">
-                <div *ngFor="let c of certArr.controls; let i = index" [formGroupName]="i" class="cert-item">
+                <div *ngFor="let c of certArr.controls; let i = index"  class="cert-item">
                     <mat-form-field appearance="fill" style="width: 100%;">
                         <mat-label>Certification</mat-label>
-                        <input matInput placeholder="Enter your certifications" />
+                        <input matInput [formControlName]="i" placeholder="Enter your certifications" />
                         <button mat-icon-button matSuffix color="warn" type="button" (click)="removeCertification(i)"
                         ><mat-icon>delete</mat-icon></button>
                     </mat-form-field>
@@ -162,10 +163,10 @@
                 </button>
             </div>
             <div formArrayName="awards">
-                <div *ngFor="let a of awardArr.controls; let i = index" [formGroupName]="i" class="award-item">
+                <div *ngFor="let a of awardArr.controls; let i = index"  class="award-item">
                     <mat-form-field appearance="fill" style="width: 100%;">
                         <mat-label>Awards</mat-label>
-                        <input matInput placeholder="Enter your awards" />
+                        <input matInput [formControlName]="i" placeholder="Enter your awards" />
                         <button mat-icon-button matSuffix color="warn" type="button" (click)="removeAward(i)"
                         ><mat-icon>delete</mat-icon></button>
                     </mat-form-field>
@@ -274,7 +275,7 @@
 
             <div class="action-buttons">
                 <button mat-raised-button color="accent" matStepperPrevious>Back</button>
-                <button mat-raised-button color="accent" (click)="pdf()">Generate PDF</button>
+                <button mat-raised-button color="accent" matStepperNext >Next</button>
             </div>
         </form>
     </mat-step>
@@ -343,9 +344,9 @@
                 </div>
 
                 <div class="action-buttons">
-                    <button mat-button matStepperPrevious>Back</button>
-                    <button mat-button (click)="pdf()">Generate PDF</button>
-                    <button mat-button (click)="stepper.reset()">Reset</button>
+                    <button mat-raised-button color="accent" matStepperPrevious>Back</button>
+                    <button mat-raised-button color="accent" (click)="pdf()">Generate PDF</button>
+                    <button mat-raised-button color="accent" (click)="stepper.reset()">Reset</button>
                 </div>
             </mat-card-content>
         </mat-card>
