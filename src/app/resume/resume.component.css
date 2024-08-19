@@ -65,7 +65,7 @@
     display: block;
     margin: 30px auto;
     padding: 12px 25px;
-    background-color: #007bff;
+    background-color: #da0d6c;
     color: white;
     font-size: 1.1em;
     font-weight: bold;
@@ -96,9 +96,14 @@
   .summary p, .experience p, .education p {
     font-size: 1.1em;
     color: #444;
+    
   }
 
   .margin_0{
     margin: 0 !important;padding: 0 !important;
   }
   
+  .wrapper{
+    word-wrap: break-word;
+  overflow-wrap: break-word;
+  }

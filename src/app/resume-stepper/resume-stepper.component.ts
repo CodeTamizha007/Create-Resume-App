@@ -1,10 +1,10 @@
 import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
-import { ChangeDetectorRef, Component } from '@angular/core';
-import { FormArray, FormBuilder, Validators } from '@angular/forms';
+import { ChangeDetectorRef, Component, ViewChild } from '@angular/core';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ServiceService } from '../service.service';
-import html2pdf from 'html2pdf.js';
 import { Router } from '@angular/router';
 import { Profile } from '../templete.interface';
+import { ResumeComponent } from '../resume/resume.component';
 
 export interface Experience {
   company: string;
@@ -14,9 +14,9 @@ export interface Experience {
   description: string;
 }
 
-export interface Roles{
-  roleDescription:string;
-  role:string
+export interface Roles {
+  roleDescription: string;
+  role: string;
 }
 
 @Component({
@@ -31,11 +31,104 @@ export interface Roles{
   ],
 })
 export class ResumeStepperComponent {
-  constructor(private fb: FormBuilder,private router:Router, private cd: ChangeDetectorRef, private service: ServiceService) {
-    this.loadPhoto();
+  profile: Profile | undefined;
+  selectedFile: File | null = null;
+  photoUrl: string | ArrayBuffer | null = null;
 
+  details: FormGroup;
+  ro_le: FormGroup;
+  role: FormGroup;
+  skills: FormGroup;
+  certifications: FormGroup;
+  experience: FormGroup;
+  education: FormGroup;
+  photoUrls: FormGroup;
+
+  constructor(
+    private fb: FormBuilder,
+    private router: Router,
+    private cd: ChangeDetectorRef,
+    private service: ServiceService
+  ) {
+    this.details = this.fb.group({
+      name: ['', Validators.required],
+      phoneno: ["", [Validators.required, Validators.minLength(10), Validators.maxLength(10)]],
+      mailid: ["", [Validators.required, Validators.email]],
+      address: [""],
+    });
+
+    this.ro_le = this.fb.group({
+      role: ['', Validators.required],
+      description: ["", [Validators.required]],
+    });
+
+    this.role = this.fb.group({
+      roles: this.fb.array([]),
+    });
+
+    this.skills = this.fb.group({
+      skill: this.fb.array([]),
+    });
+
+    this.certifications = this.fb.group({
+      certifications: this.fb.array([]),
+      awards: this.fb.array([]),
+    });
+
+    this.experience = this.fb.group({
+      experiences: this.fb.array([] as Experience[]),
+    });
+
+    this.education = this.fb.group({
+      educationDetails: this.fb.array([]),
+    });
+
+    this.photoUrls = this.fb.group({
+      profileUrl: [''],
+      linkedinUrl: ['']
+    });
+
+    this.subscribeToFormChanges();
+    this.loadPhoto();
   }
-  
+
+  subscribeToFormChanges() {
+    const formGroups = [
+      this.details,
+      this.ro_le,
+      this.role,
+      this.skills,
+      this.certifications,
+      this.experience,
+      this.education,
+      this.photoUrls
+    ];
+
+    formGroups.forEach(group => {
+      group.valueChanges.subscribe(() => {
+        this.updateProfile();
+      });
+    });
+  }
+
+  updateProfile() {
+    this.profile = {
+      ...this.details.value,
+      ...this.ro_le.value,
+      ...this.role.value,
+      ...this.skills.value,
+      ...this.certifications.value,
+      ...this.experience.value,
+      ...this.education.value,
+      ...this.photoUrls.value
+    };
+  }
+
+  @ViewChild(ResumeComponent)resumeComp:ResumeComponent | undefined
+  downloadPDF(){
+     this.resumeComp?.downloadPDF()
+  }
+
   pdf() {
     let detObj = {
       ...this.details.value,
@@ -47,54 +140,19 @@ export class ResumeStepperComponent {
       ...this.education.value,
       ...this.ro_le.value
     };
-    this.service.profile=detObj;
-    this.service.photoUrl=this.photoUrl;console.log(this.service.photoUrl);
-  }
-
-  get exper(){
-  return this.experience.value.experiences as Experience[]
-  }
-
-  get roles(){
-    return this.role.value.roles  as Roles[];
-    }
-
-
- 
-
-  details = this.fb.group({
-    name: ['', Validators.required],
-    phoneno: ["", [Validators.required, Validators.minLength(10), Validators.maxLength(10)]],
-    mailid: ["", [Validators.required, Validators.email]],
-    address: [""],
-  });
-
-  ro_le = this.fb.group({
-    role: ['', Validators.required],
-    description: ["", [Validators.required]],
+    this.service.profile = detObj;
+    this.service.photoUrl = this.photoUrl;
+    console.log(this.profile);
     
-  });
+  }
 
-  role = this.fb.group({
-    roles: this.fb.array([]),
-  });
+  get exper() {
+    return this.experience.value.experiences as Experience[];
+  }
 
-  skills = this.fb.group({
-    skill: this.fb.array([]),
-  });
-
-  certifications = this.fb.group({
-    certifications: this.fb.array([]),
-    awards: this.fb.array([]),
-  });
-
-  experience = this.fb.group({
-    experiences: this.fb.array([] as Experience[]),
-  });
-
-  education = this.fb.group({
-    educationDetails: this.fb.array([]),
-  });
+  get roles() {
+    return this.role.value.roles as Roles[];
+  }
 
   get eduArr() {
     return this.education.get('educationDetails') as FormArray;
@@ -123,8 +181,8 @@ export class ResumeStepperComponent {
   addRole() {
     this.roleArr.push(
       this.fb.group({
-        role: ['',Validators.required],
-        roleDescription: ['',Validators.required],
+        role: ['', Validators.required],
+        roleDescription: ['', Validators.required],
       })
     );
   }
@@ -150,7 +208,7 @@ export class ResumeStepperComponent {
   }
 
   addSkill() {
-    this.skillArr.push(this.fb.control('',[Validators.required]));
+    this.skillArr.push(this.fb.control('', [Validators.required]));
   }
 
   removeSkills(index: number) {
@@ -158,7 +216,7 @@ export class ResumeStepperComponent {
   }
 
   addCertification() {
-    this.certArr.push(this.fb.control('',[Validators.required]));
+    this.certArr.push(this.fb.control('', [Validators.required]));
   }
 
   removeCertification(index: number) {
@@ -166,7 +224,7 @@ export class ResumeStepperComponent {
   }
 
   addAward() {
-    this.awardArr.push(this.fb.control('',[Validators.required]));
+    this.awardArr.push(this.fb.control('', [Validators.required]));
   }
 
   removeAward(index: number) {
@@ -176,11 +234,11 @@ export class ResumeStepperComponent {
   addExperience() {
     this.expArr.push(
       this.fb.group({
-        company: ['',Validators.required],
-        role: ['',Validators.required],
-        startDate: [null,Validators.required],
-        endDate: [null,Validators.required],
-        description: ['',Validators.required],
+        company: ['', Validators.required],
+        role: ['', Validators.required],
+        startDate: [null, Validators.required],
+        endDate: [null, Validators.required],
+        description: ['', Validators.required],
       })
     );
   }
@@ -188,14 +246,6 @@ export class ResumeStepperComponent {
   removeExperience(index: number) {
     this.expArr.removeAt(index);
   }
-
-  photoUrls = this.fb.group({
-    profileUrl: [''],
-    linkedinUrl: ['']
-  });
-
-  selectedFile: File | null = null;
-  photoUrl: string | ArrayBuffer | null = null;
 
   onFileChange(event: any): void {
     const file = event.target.files[0];
