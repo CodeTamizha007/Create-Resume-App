@@ -44,12 +44,14 @@
                         <input matInput formControlName="institutionName" placeholder="Institution Name" />
                     </mat-form-field>
                     <mat-form-field appearance="fill" style="width: 100%;">
-                        <mat-label>Start Year</mat-label>
-                        <input matInput type="number" formControlName="startYear" placeholder="Start Year" />
+                        <mat-label>Start Date</mat-label>
+                        <input matInput [matDatepicker]="startDate" formControlName="startDate" placeholder="Start Date" />
+                        <mat-datepicker #startDate></mat-datepicker>
                     </mat-form-field>
                     <mat-form-field appearance="fill" style="width: 100%;">
-                        <mat-label>End Year</mat-label>
-                        <input matInput type="number" formControlName="endYear" placeholder="End Year" />
+                        <mat-label>End Date</mat-label>
+                        <input matInput [matDatepicker]="endDate" formControlName="endDate" placeholder="End Date" />
+                        <mat-datepicker #endDate></mat-datepicker>
                     </mat-form-field>
                     <mat-form-field appearance="fill" style="width: 100%;">
                         <mat-label>Course</mat-label>
@@ -72,12 +74,31 @@
         
     </mat-step>
 
+    <mat-step [stepControl]="ro_le" errorMessage="Role required.">
+        <form [formGroup]="ro_le">
+            <ng-template matStepLabel>Role & Description</ng-template>
+            <mat-form-field>
+                <mat-label>Role</mat-label>
+                <input matInput placeholder="Enter your Role" formControlName="role" required>
+            </mat-form-field>
+           
+            <mat-form-field>
+                <mat-label>Description</mat-label>
+                <textarea matInput formControlName="description" placeholder="Describe yourself" rows="2"></textarea>
+            </mat-form-field>
+            <div class="action-buttons">
+                <button mat-raised-button color="accent" matStepperPrevious>Back</button>
+                <button color="accent" mat-raised-button matStepperNext>Next</button>
+            </div>
+        </form>
+    </mat-step>
+
     <!-- Step 3: Role & Descriptions -->
     <mat-step  [stepControl]="role" errorMessage="Role required.">
         
-            <ng-template matStepLabel>Roles & Description</ng-template>
+            <ng-template matStepLabel>Projects & Description</ng-template>
             <div style="text-align: center; margin: 25px;">
-                <h1>Add Roles & Description</h1>
+                <h1>Add Projects & Description</h1>
                 <button mat-fab aria-label="add role" color="primary" (click)="addRole()">
                     <mat-icon>add</mat-icon>
                 </button>
@@ -86,12 +107,12 @@
             <div formArrayName="roles">
                 <div *ngFor="let r of roleArr.controls; let i = index" [formGroupName]="i" class="role-item">
                     <mat-form-field appearance="fill" style="width: 100%;">
-                        <mat-label>Role</mat-label>
-                        <input matInput formControlName="role" placeholder="Role" />
+                        <mat-label>Project </mat-label>
+                        <input matInput formControlName="role" placeholder="Project" />
                     </mat-form-field>
                     <mat-form-field appearance="fill" style="width: 100%;">
-                        <mat-label>Role Description</mat-label>
-                        <input matInput formControlName="roleDescription" placeholder="Role Description" />
+                        <mat-label>Project Description</mat-label>
+                        <input matInput formControlName="roleDescription" placeholder="Project Description" />
                     </mat-form-field>
                     <button mat-raised-button  matSuffix color="warn" type="button" (click)="removeRole(i)"
                         >Delete
@@ -279,79 +300,83 @@
             </div>
         </form>
     </mat-step>
-
-    <mat-step  >
+    <mat-step>
         <ng-template matStepLabel>Review</ng-template>
-
-        <mat-card class="review-card">
-            <mat-card-header>
-                <mat-card-title>
-                    <h2>Review Your Details</h2>
-                </mat-card-title>
-            </mat-card-header>
-            <mat-card-content>
-                <div id="resumeContent" class="review-details">
-                    <img *ngIf="photoUrl" [src]="photoUrl" alt="Profile Photo" class="profile-photo">
-
-                    <div class="details-section">
-                        <h3>Personal Information</h3>
-                        <p><strong>Name:</strong> {{details.value['name']}}</p>
-                        <p><strong>Phone No:</strong> {{details.value['phoneno']}}</p>
-                        <p><strong>Email:</strong> {{details.value['mailid']}}</p>
-                        <p><strong>Address:</strong> {{details.value['address']}}</p>
-                    </div>
-
-                    <div class="details-section">
-                        <h3>Role & Description</h3>
-                        <div *ngFor="let value of roles">
-                        <p><strong>Role:</strong> {{value['role']}}</p>
-                        <p><strong>Description:</strong> {{value['roleDescription']}}</p>
-                        </div>
-                    </div>
-
-                    <div class="details-section">
-                        <h3>Skills</h3>
-                        <ul>
-                            <li *ngFor="let skill of skills.value.skill">{{skill}}</li>
-                        </ul>
-                    </div>
-
-                    <div class="details-section">
-                        <h3>Certifications</h3>
-                        <ul>
-                            <li *ngFor="let cert of certifications.value.certifications">{{cert}}</li>
-                        </ul>
-                    </div>
-
-                    <div class="details-section">
-                        <h3>Awards</h3>
-                        <ul>
-                            <li *ngFor="let award of certifications.value.awards">{{award}}</li>
-                        </ul>
-                    </div>
-
-                    <div class="details-section">
-                <h3>Experience</h3>
-                <div *ngFor="let value of exper">
-                  <p><strong>Company:</strong> {{value['company']}}:"":""</p>
-                  <p><strong>Role:</strong> {{value['role']}}</p>
-                  <p><strong>Start Date:</strong> {{value['startDate'] | date}}</p>
-                  <p><strong>End Date:</strong> {{value['endDate'] | date}}</p>
-                  <p><strong>Description:</strong> {{value['description']}}</p>
-                  <mat-divider></mat-divider>
-                </div>
-              </div>
-                </div>
-
-                <div class="action-buttons">
-                    <button mat-raised-button color="accent" matStepperPrevious>Back</button>
-                    <button mat-raised-button color="accent" (click)="pdf()">Generate PDF</button>
-                    <button mat-raised-button color="accent" (click)="stepper.reset()">Reset</button>
-                </div>
-            </mat-card-content>
-        </mat-card>
+        <app-resume></app-resume>
     </mat-step>
+    
 
 
 
 </mat-horizontal-stepper>
+<!-- <mat-step  >
+    <ng-template matStepLabel>Review</ng-template>
+
+    <mat-card class="review-card">
+        <mat-card-header>
+            <mat-card-title>
+                <h2>Review Your Details</h2>
+            </mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+            <div id="resumeContent" class="review-details">
+                <img *ngIf="photoUrl" [src]="photoUrl" alt="Profile Photo" class="profile-photo">
+
+                <div class="details-section">
+                    <h3>Personal Information</h3>
+                    <p><strong>Name:</strong> {{details.value['name']}}</p>
+                    <p><strong>Phone No:</strong> {{details.value['phoneno']}}</p>
+                    <p><strong>Email:</strong> {{details.value['mailid']}}</p>
+                    <p><strong>Address:</strong> {{details.value['address']}}</p>
+                </div>
+
+                <div class="details-section">
+                    <h3>Role & Description</h3>
+                    <div *ngFor="let value of roles">
+                    <p><strong>Role:</strong> {{value['role']}}</p>
+                    <p><strong>Description:</strong> {{value['roleDescription']}}</p>
+                    </div>
+                </div>
+
+                <div class="details-section">
+                    <h3>Skills</h3>
+                    <ul>
+                        <li *ngFor="let skill of skills.value.skill">{{skill}}</li>
+                    </ul>
+                </div>
+
+                <div class="details-section">
+                    <h3>Certifications</h3>
+                    <ul>
+                        <li *ngFor="let cert of certifications.value.certifications">{{cert}}</li>
+                    </ul>
+                </div>
+
+                <div class="details-section">
+                    <h3>Awards</h3>
+                    <ul>
+                        <li *ngFor="let award of certifications.value.awards">{{award}}</li>
+                    </ul>
+                </div>
+
+                <div class="details-section">
+            <h3>Experience</h3>
+            <div *ngFor="let value of exper">
+              <p><strong>Company:</strong> {{value['company']}}:"":""</p>
+              <p><strong>Role:</strong> {{value['role']}}</p>
+              <p><strong>Start Date:</strong> {{value['startDate'] | date}}</p>
+              <p><strong>End Date:</strong> {{value['endDate'] | date}}</p>
+              <p><strong>Description:</strong> {{value['description']}}</p>
+              <mat-divider></mat-divider>
+            </div>
+          </div>
+            </div>
+
+            <div class="action-buttons">
+                <button mat-raised-button color="accent" matStepperPrevious>Back</button>
+                <button mat-raised-button color="accent" (click)="pdf()">Generate PDF</button>
+                <button mat-raised-button color="accent" (click)="stepper.reset()">Reset</button>
+            </div>
+        </mat-card-content>
+    </mat-card>
+</mat-step> -->

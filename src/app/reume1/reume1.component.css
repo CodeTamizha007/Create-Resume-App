@@ -1,0 +1,74 @@
+.resume-container {
+    font-family: 'Calibri', sans-serif;
+    width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #ffffff;
+  }
+  
+  .header {
+    display: flex;
+    align-items: center;
+  }
+  
+  .photo img {
+    border-radius: 50%;
+    width: 120px;
+    height: 120px;
+  }
+  
+  .name-info {
+    margin-left: 20px;
+  }
+  
+  .name-info h1 {
+    font-size: 2.5em;
+    margin: 0;
+  }
+  
+  .name-info p {
+    font-size: 1.1em;
+  }
+  
+  hr {
+    margin: 20px 0;
+    border: 1px solid #000;
+  }
+  
+  .section {
+    margin-bottom: 20px;
+  }
+  
+  .section h2 {
+    font-size: 1.8em;
+    margin-bottom: 10px;
+    border-bottom: 2px solid #000;
+    padding-bottom: 5px;
+  }
+  
+  .section ul {
+    list-style: none;
+    padding-left: 0;
+  }
+  
+  .section ul li {
+    font-size: 1.2em;
+    margin-bottom: 5px;
+  }
+  
+  button {
+    display: block;
+    margin: 20px auto;
+    padding: 10px 20px;
+    font-size: 1.1em;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+  }
+  
+  button:hover {
+    background-color: #0056b3;
+  }
+  

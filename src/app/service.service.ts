@@ -4,6 +4,7 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class ServiceService {
-
+ profile?:any;
+ photoUrl?:any
   constructor() { }
 }

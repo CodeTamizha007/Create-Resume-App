@@ -3,6 +3,8 @@ import { ChangeDetectorRef, Component } from '@angular/core';
 import { FormArray, FormBuilder, Validators } from '@angular/forms';
 import { ServiceService } from '../service.service';
 import html2pdf from 'html2pdf.js';
+import { Router } from '@angular/router';
+import { Profile } from '../templete.interface';
 
 export interface Experience {
   company: string;
@@ -29,10 +31,11 @@ export interface Roles{
   ],
 })
 export class ResumeStepperComponent {
-  constructor(private fb: FormBuilder, private cd: ChangeDetectorRef, private service: ServiceService) {
+  constructor(private fb: FormBuilder,private router:Router, private cd: ChangeDetectorRef, private service: ServiceService) {
     this.loadPhoto();
-  }
 
+  }
+  
   pdf() {
     let detObj = {
       ...this.details.value,
@@ -40,10 +43,12 @@ export class ResumeStepperComponent {
       ...this.skills.value,
       ...this.photoUrls.value,
       ...this.certifications.value,
-      ...this.experience.value
+      ...this.experience.value,
+      ...this.education.value,
+      ...this.ro_le.value
     };
-    console.log(detObj);
-    this.downloadResume();
+    this.service.profile=detObj;
+    this.service.photoUrl=this.photoUrl;console.log(this.service.photoUrl);
   }
 
   get exper(){
@@ -55,23 +60,19 @@ export class ResumeStepperComponent {
     }
 
 
-  downloadResume() {
-    const element = document.getElementById('resumeContent');
-    const options = {
-      filename: 'resume.pdf',
-      image: { type: 'jpeg', quality: 0.98 },
-      html2canvas: { scale: 2 },
-      jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
-    };
-
-    html2pdf().from(element).set(options).save();
-  }
+ 
 
   details = this.fb.group({
     name: ['', Validators.required],
     phoneno: ["", [Validators.required, Validators.minLength(10), Validators.maxLength(10)]],
     mailid: ["", [Validators.required, Validators.email]],
     address: [""],
+  });
+
+  ro_le = this.fb.group({
+    role: ['', Validators.required],
+    description: ["", [Validators.required]],
+    
   });
 
   role = this.fb.group({
@@ -103,8 +104,8 @@ export class ResumeStepperComponent {
     this.eduArr.push(
       this.fb.group({
         institutionName: ['', Validators.required],
-        startYear: ["", [Validators.required]],
-        endYear: ["", [Validators.required]],
+        startDate: [null, [Validators.required]],
+        endDate: [null, [Validators.required]],
         course: ['', Validators.required],
         percentage: ['', [Validators.required, Validators.min(0), Validators.max(100)]],
       })

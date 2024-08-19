@@ -11,7 +11,9 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { TempleselectionComponent } from './templeselection/templeselection.component';
 import { CreateresumeComponent } from './createresume/createresume.component';
-import { ResumeStepperComponent } from './resume-stepper/resume-stepper.component'
+import { ResumeStepperComponent } from './resume-stepper/resume-stepper.component';
+import { ResumeComponent } from './resume/resume.component';
+import { Reume1Component } from './reume1/reume1.component'
 
 @NgModule({
   declarations: [
@@ -22,7 +24,9 @@ import { ResumeStepperComponent } from './resume-stepper/resume-stepper.componen
     RegisterComponent,
     TempleselectionComponent,
     CreateresumeComponent,
-    ResumeStepperComponent
+    ResumeStepperComponent,
+    ResumeComponent,
+    Reume1Component
   ],
   imports: [
     BrowserModule,

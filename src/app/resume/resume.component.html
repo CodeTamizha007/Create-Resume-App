@@ -1,0 +1,82 @@
+<div id="resume-content" class="resume-container">
+  <div class="header">
+
+    
+    <img *ngIf="photo" [src]="photo" alt="Profile Photo" class="profile-photo">
+    <h4 class="name">{{ profile.name | uppercase }}</h4>
+    <p class="name" *ngIf="profile.role">{{ profile.role | titlecase }}</p>
+    <p class="contact-info">{{ profile.mailid }} | {{ "+91 "+profile.phoneno }} <span *ngIf="profile.linkedinUrl">{{ " |
+        "+profile.linkedinUrl}}</span></p>
+    <p class="contact-info" *ngIf="profile.profileUrl">{{profile.profileUrl}}</p>
+  </div>
+
+  <div class="section summary">
+    <p  *ngIf="profile.description">{{ profile.description }}</p>
+  </div>
+
+  <mat-grid-list cols="5" rowHeight="790px">
+    <mat-grid-tile [colspan]="2">
+      <div class="section skills" *ngIf="profile.skill">
+        <h2>{{"Skills :" | uppercase }}</h2>
+        <ul class="skills-list">
+          <li *ngFor="let skill of profile.skill">{{ skill }}</li>
+        </ul>
+      </div>
+
+      <div class="section certifications" *ngIf="profile.certifications">
+        <h2> {{"Certifications :" | uppercase }}</h2>
+        <ul>
+          <li *ngFor="let cert of profile.certifications">{{ cert }}</li>
+        </ul>
+      </div>
+
+      <div class="section certifications" *ngIf="profile.awards">
+        <h2> {{"Awards :" | uppercase }}</h2>
+        <ul>
+          <li *ngFor="let cert of profile.certifications">{{ cert }}</li>
+        </ul>
+      </div>
+
+      <div class="section education" *ngIf="profile.educationDetails">
+        <h2>{{"Education" | uppercase }} </h2>
+        <div *ngFor="let edu of profile.educationDetails">
+          <h3 style="font-weight: bold;" class="margin_0">{{ edu.institutionName }}</h3>
+          <p class="dates margin_0">{{ edu.startDate | date:'MMM yyyy' }} - {{ edu.endDate | date:'MMM yyyy' }}</p>
+
+          <p>Percentage: {{ edu.percentage }}%</p>
+        </div>
+      </div>
+    </mat-grid-tile>
+
+    <mat-grid-tile [colspan]="3">
+      <div class="section experience" *ngIf="profile.experiences">
+        <h2> {{"Professional Experience :" | uppercase }}</h2>
+        <div *ngFor="let exp of profile.experiences">
+          <h3 style="font-weight: bold;" class="margin_0">{{ exp.company }} | {{ exp.role }}</h3>
+          <p class="dates">{{ exp.startDate | date:'MMM yyyy' }} - {{ exp.endDate | date:'MMM yyyy' }}</p>
+          <ul>
+            <li>{{ exp.description }}</li>
+          </ul>
+        </div>
+      </div>
+      <div class="section experience" *ngIf="profile.roles">
+        <h2> {{"Projects :" | uppercase }}</h2>
+        <div *ngFor="let exp of profile.roles">
+          <h3 style="font-weight: bold;" class="margin_0"> {{ exp.role }}</h3>
+          <ul>
+            <li>{{ exp.roleDescription }}</li>
+          </ul>
+        </div>
+      </div>
+    </mat-grid-tile>
+  </mat-grid-list>
+
+
+
+
+
+
+
+</div>
+
+<button class="download-btn" (click)="downloadPDF()">Download Resume as PDF</button>
